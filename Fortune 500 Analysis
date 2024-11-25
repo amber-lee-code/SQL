@@ -1,0 +1,32 @@
+-- WHICH COMPANY HAS THE MOST REVENUE AND AN AVERAGE EMPLOYEE TENURE OF 7 YEARS?
+SELECT company_name, MAX(revenue)
+FROM fortune_companies
+WHERE avg_employee_tenure>=7;
+
+-- WHICH COMPANIES HAVE AT LEAST 20 PAID TIME OFF DAYS AND HEALTHCARE BENEFITS?
+SELECT company_name
+FROM fortune_companies
+WHERE paid_time_off_days>=20 AND healthcare_benefits=1;
+
+-- WHAT IS THE TOTAL REVENUE BY INDUSTRY, LISTED IN DESCENDING ORDER?
+SELECT industry, SUM(revenue) AS total_revenue
+FROM fortune_companies
+GROUP BY industry
+HAVING total_revenue
+ORDER BY total_revenue desc;
+
+-- WHAT IS THE AVERAGE EMPLOYEE TENURE BY INDUSTRY?
+SELECT industry, AVG(avg_employee_tenure) AS avg_tenure
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_tenure;
+
+-- HOW MANY COMPANIES ARE IN EACH CATEGORY OF EMPLOYEE COUNT?
+SELECT COUNT(employees) AS total_companies,
+CASE WHEN employees>=150000 THEN "150,000+ employees"
+WHEN employees>=50000 THEN "50,000+ employees"
+WHEN employees>=5000 THEN "5,000+ employees"
+ELSE "Less than 5,000 employees"
+END AS number_of_employees
+FROM fortune_companies
+GROUP BY number_of_employees;
