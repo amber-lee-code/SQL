@@ -47,3 +47,34 @@ SELECT COUNT(distinct acctnum), AVG(quantity*price)
   WHERE FebSales.quantity>2
   AND length(orderID) = 6
   AND orderID <> 'Order ID';
+
+--Show all orders placed between February 13th, 2019 and February 18th, 2019.
+SELECT orderdate
+FROM BIT_DB.FebSales
+WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+
+--Where was an order placed for on February 18th, 2019 at 1:35?
+SELECT location
+FROM BIT_DB.FebSales
+WHERE orderdate = '02/18/19 01:35';
+
+--How many orders were placed on February 18th, 2019?
+SELECT sum(quantity)
+FROM BIT_DB.FebSales
+WHERE orderdate like '02/18/19%';
+
+--List all types of batteries sold in February.
+SELECT distinct Product
+FROM BIT_DB.FebSales
+WHERE Product like '%Batteries%';
+
+--Which products are priced ending in .99?
+SELECT distinct Product, Price
+FROM BIT_DB.FebSales
+WHERE Price like '%.99';
+
+--List all products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, sum(quantity)
+FROM BIT_DB.FebSales
+WHERE location like '%Los Angeles%'
+GROUP BY Product;
